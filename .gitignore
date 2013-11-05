@@ -1,9 +1,13 @@
-/presentation/
-/D_CLEAN/
+# untracked files
 doc/
 figure/
-scripts/
+presentation/
+sim_data/
 test.uv/
+test_uv_var/
+src/D_CLEAN/
+src/scripts/
+
 *.pyc
 *.org
 *.fits
@@ -13,10 +17,11 @@ test.uv/
 *.uv/
 *~
 \#*
-/visibility/pwa303.py
-/ps_estimate/delay_spec_bac.py
-/ps_estimate/print_preamble.py
-/ps_estimate/print_vars.py
-/ps_estimate/pwa303.py
-/ps_estimate/visdata.py
+
+src/ps_estimate/delay_spec_bac.py
+src/ps_estimate/print_preamble.py
+src/ps_estimate/print_vars.py
+src/ps_estimate/pwa303.py
+src/ps_estimate/visdata.py
+src/visibility/pwa303.py
 
