@@ -1,0 +1,8 @@
+To run the code in the `src` directory, you need AIPY installed in you computer. You can download AIPY from
+https://pypi.python.org/pypi/aipy
+Some useful informations about AIPY can be found in
+https://casper.berkeley.edu/astrobaki/index.php/AIPY
+
+Also you may need to tell python where to look for the python modules in `src` directory. This is done by setting the PYTHON variable to point to the `src` directory. In bash, this looks like:
+$ export PYTHONPATH=$PYTHONPATH:/home/yourdirectory/to/TianlaiSim/src
+However, you'll have to type this every time you open a terminal.  To avoid this, add the export line to the .bashrc file in your home dir.

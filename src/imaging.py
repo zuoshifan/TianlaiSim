@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import aipy as ap
 
 
-uv = ap.miriad.UV('sim3.uv')
+uv = ap.miriad.UV('../sim_data/sim3.uv')
 # freqs = np.array([0.8]) # GHz
 # nchan = (freqs.shape)[0]
 # sdf = 0.0
@@ -34,7 +34,7 @@ data,uvw,wgts = np.concatenate(data),np.concatenate(uvw,axis=1),np.concatenate(w
 
 size = 20
 res = 0.5
-im = ap.img.ImgW(size=size,res=res)
+im = ap.img.Img(size=size,res=res)
 uvw,data,wgts = im.append_hermitian(uvw,data,wgts=wgts)
 im.put(uvw,data,wgts=wgts)
 plt.figure()

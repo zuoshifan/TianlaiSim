@@ -115,8 +115,8 @@ if __name__ == '__main__':
        plt.xlabel('x (EW)')
        plt.ylabel('y (NS)')
        # plt.xlim(-w,w)
-       plt.savefig('figure/png/beam2d.png')
-       plt.savefig('figure/eps/beam3d.eps')
+       plt.savefig('../figure/vis/png/beam2d.png')
+       plt.savefig('../figure/vis/eps/beam3d.eps')
        plt.show()
        # 3D
        # ax = plt.subplot(111,projection='3d')
@@ -135,8 +135,8 @@ if __name__ == '__main__':
         plt.axes().set_aspect('equal', 'datalim')
         plt.xlabel('East-West Antenna Position (ns)')
         plt.ylabel('North-South Antenna Position (ns)')
-        plt.savefig('figure/png/AntennaArray.png')
-        plt.savefig('figure/eps/AntennaArray.eps')
+        plt.savefig('../figure/vis/png/AntennaArray.png')
+        plt.savefig('../figure/vis/eps/AntennaArray.eps')
         plt.show()
     if plt_uvCov:
         nants = (ant_pos.shape)[0]
@@ -167,8 +167,8 @@ if __name__ == '__main__':
         plt.axes().set_aspect('equal', 'datalim')
         plt.xlabel('u (ns)')
         plt.ylabel('v (ns)')
-        plt.savefig('figure/png/uv_coverage2.png')
-        plt.savefig('figure/eps/uv_coverage2.eps')
+        plt.savefig('../figure/vis/png/uv_coverage2.png')
+        plt.savefig('../figure/vis/eps/uv_coverage2.eps')
         plt.show()
 
 

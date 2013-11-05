@@ -5,7 +5,6 @@ presentation/
 sim_data/
 test.uv/
 test_uv_var/
-src/D_CLEAN/
 src/scripts/
 
 *.pyc
@@ -18,10 +17,10 @@ src/scripts/
 *~
 \#*
 
-src/ps_estimate/delay_spec_bac.py
-src/ps_estimate/print_preamble.py
-src/ps_estimate/print_vars.py
-src/ps_estimate/pwa303.py
-src/ps_estimate/visdata.py
-src/visibility/pwa303.py
+src/delay_spec_bac.py
+src/print_preamble.py
+src/print_vars.py
+src/pwa303.py
+src/visdata.py
+src/pwa303.py
 

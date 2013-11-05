@@ -177,7 +177,7 @@ def mdl(uv, p, d, f):
 
 # Initialize a new UV file
 pols = pol.split(',')
-uv = ap.miriad.UV('sim3.uv', status='new')
+uv = ap.miriad.UV('../sim_data/sim3.uv', status='new')
 uv._wrhd('obstype','mixed-auto-cross')
 uv._wrhd('history','MDLVIS: created file.\nMDLVIS: srcs=%s mode=%s flag=%s noise=%f\n' % (src, mode, flag, noiselev))
 uv.add_var('telescop','a'); uv['telescop'] = 'AIPY'
