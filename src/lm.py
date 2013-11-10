@@ -39,8 +39,8 @@ if __name__ == '__main__':
     ants.append(ap.fit.Antenna(0,100,0,beam,phsoff=[0,0]))
     aa = ap.fit.AntennaArray(ants=ants,location=("+42:40:54.57","+81:05:39.09"))
     aa.set_ephemtime('2013/10/1 12:00') # observing time
-    ref_src = ap.fit.RadioFixedBody('250:00','40:00',mfreq=1.42,name='center') # ra,dec
-    src = ap.fit.RadioFixedBody('260:00','50:00',mfreq=1.42,name='src') # ra,dec
+    ref_src = ap.fit.RadioFixedBody('16:40','40:00',mfreq=1.42,name='center') # ra,dec
+    src = ap.fit.RadioFixedBody('17:00','50:00',mfreq=1.42,name='src') # ra,dec
     ref_src.compute(aa)
     src.compute(aa)
     print get_lm(ref_src,ref_src,aa)

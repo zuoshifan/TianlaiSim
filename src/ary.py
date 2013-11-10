@@ -10,7 +10,6 @@ class AntennaArray(ap.fit.AntennaArray):
     """Representation of location and time of observation, and response of array of antennas as function of pointing and frequency.
     """
 
-
     def resolve_src(self, u, v, srcshape=(0,0,0)):
         """Adjust amplitudes to reflect resolution effects for a uniform 
         elliptical disk characterized by srcshape:
@@ -28,26 +27,7 @@ class AntennaArray(ap.fit.AntennaArray):
         # Use first Bessel function of the first kind (J_1)
         # return n.where(x == 0, 1, 2 * _cephes.j1(x)/x).squeeze()
         return np.where(x == 0, 1, 2 * ap._cephes.j1(x)/x)
-    
-    # def gen_phs(self, src, i, j, mfreq=.150, ionref=None, srcshape=None, 
-    #         resolve_src=False):
-    #     """Return phasing that is multiplied to data to point to src."""
-    #     if ionref is None:
-    #         try: ionref = src.ionref
-    #         except(AttributeError): pass
-    #     if not ionref is None or resolve_src: u,v,w = self.gen_uvw(i,j,src=src)
-    #     else: w = self.gen_uvw(i,j,src=src, w_only=True)
-    #     if not ionref is None: w += self.refract(u, v, mfreq=mfreq, ionref=ionref)
-    #     o = self.get_phs_offset(i,j)
-    #     phs = np.exp(-1j*2*np.pi*(w + o))
-    #     if resolve_src:
-    #         if srcshape is None:
-    #             try: srcshape = src.srcshape
-    #             except(AttributeError): pass
-    #         # if not srcshape is None: phs = phs * self.resolve_src(u, v, srcshape=srcshape)
-    #         if not srcshape is None: phs *= self.resolve_src(u, v, srcshape=srcshape)
-    #     return phs.squeeze()
-        
+
     def sim(self, i, j, pol='xx'):
         """Simulate visibilites for the specified (i,j) baseline and 
         polarization.  sim_cache() must be called at each time step before 

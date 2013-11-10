@@ -13,8 +13,9 @@ sdf = 0.01
 sfreq = 0.8
 nchan = 2
 aa = ap.cal.get_aa('ant_array',sdf,sfreq,nchan)
-ref_ra = '250:00:00'
-ref_dec = '40:00:00'
+# ref_ra = '250:00:00' # ERROR here, should convert to hour:minute:second
+ref_ra = '16:40:00' # hour:minute:second
+ref_dec = '40:00:00' # degree:minute:second
 ref_src = ap.fit.RadioFixedBody(ref_ra,ref_dec,name='center') # the center reference source
 data, uvw, wgts = [], [], []
 uv.select('auto',0,0,include=False)
@@ -59,6 +60,7 @@ plt.ylabel('m')
 plt.show()
 
 
+# # plot the UV coverage
 # u = [u1 for [u1,v1,w1] in uvw.T]
 # v = [v2 for [ud21,v2,w2] in uvw.T]
 # # print len(u),len(v)

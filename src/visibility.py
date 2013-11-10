@@ -60,9 +60,9 @@ import constant as cst
 
 def deg2str(deg):
     """
-    Conver the deg in unit degree to string represent, e.g. '40:25:34.75'.
+    Convert the deg in unit degree to string represent, e.g. '40:25:34.75'.
     Arguments:
-    - `deg`:
+    - `deg`: in unit degree.
     """
     deg = float(deg)
     int_deg = int(deg)
@@ -70,6 +70,15 @@ def deg2str(deg):
     int_min = int(minite)
     second = 60*(minite - int_min)
     return str(int_deg) + ':' + str(int_min) + ':' + str(second)
+
+def deg2hstr(deg):
+    """
+    Convert the deg in unit degree to string represent, but in format 'hh:mm:ss' e.g. '12:25:34.75'.
+    Arguments:
+    - `deg`: in unit degree.
+    """
+    hour = float(deg) * (24.0 / 360)
+    return deg2str(hour)
 
 def gen_name(i,j,max_i,max_j):
     """
@@ -110,8 +119,8 @@ Omega_s = 0.1 # the solid angle of the source, in sr
 Jys = 1.0e26 * Isky * Omega_s # in Jy
 ras = np.linspace(235.0,265.0,360) # ra, in degree
 decs = np.linspace(25.0,55.0,360) # dec, in degree
-ras = [deg2str(ra) for ra in ras]
-decs = [deg2str(dec) for dec in decs]
+ras = [deg2hstr(ra) for ra in ras] # now in hh:mm:ss
+decs = [deg2str(dec) for dec in decs] # now in deg:mm:ss
 nra,ndec = len(ras),len(decs)
 nra_ctr,ndec_ctr = nra/2,ndec/2 # center index
 cat = ap.fit.SrcCatalog([])
@@ -136,7 +145,7 @@ mode = 'sim'
 flag = False
 noiselev = 0.
 pol = 'xx'
-src = 'sky map ra: 235:00:00 - 265:00:00, dec: 25:00:00 - 55:00:00'
+src = 'sky map ra: 235:00:00 - 265:00:00 deg, dec: 25:00:00 - 55:00:00 deg'
 inttime = 10 # s
 
 no_data = np.zeros(nchan, dtype=np.complex64)
