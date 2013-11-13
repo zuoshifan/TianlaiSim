@@ -1,5 +1,8 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import aipy as ap
+import utils as ut
+# import constant as cst
 
 def get_hadec(FixedBody,ant_array):
     """
@@ -27,12 +30,13 @@ def get_lm(FixedBody,ref_src,ant_array):
         np.sin(d)*np.sin(delta) + np.cos(d)*np.cos(delta)*np.cos(H-h)])
     return lm[0],lm[1]
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
+    '''
     # const
-    c = 3.0e8 # m/s
+    # c = 3.0e8 # m/s
     d = 2     # m antenna diameter
     freqs = np.array([1.4])
-    w = c/(d*freqs[len(freqs)/2]*1.0e9) # beam width in angular coord, lambda/d
+    w = cst.c/(d*freqs[len(freqs)/2]*1.0e9) # beam width in angular coord, lambda/d
     beam = ap.fit.Beam2DGaussian(freqs,w,w)
     ants = []
     ants.append(ap.fit.Antenna(0,0,0,beam,phsoff=[0,0]))
@@ -44,4 +48,38 @@ if __name__ == '__main__':
     ref_src.compute(aa)
     src.compute(aa)
     print get_lm(ref_src,ref_src,aa)
-    print get_lm(src,ref_src,aa) 
+    print get_lm(src,ref_src,aa)
+    '''
+
+if __name__ == '__main__':
+    sdf = 0.01
+    sfreq = 0.8
+    nchan = 2
+    aa = ap.cal.get_aa('ant_array',sdf,sfreq,nchan)
+    ras = np.linspace(235.0,265.0,360) # ra, in degree
+    decs = np.linspace(25.0,55.0,360) # dec, in degree
+    ras = [ut.deg2hstr(ra) for ra in ras] # now in hh:mm:ss
+    decs = [ut.deg2str(dec) for dec in decs] # now in deg:mm:ss
+    nra,ndec = len(ras),len(decs)
+    nra_ctr,ndec_ctr = nra/2,ndec/2 # center index
+    cat = ap.fit.SrcCatalog([])
+    for i in range(nra):
+        for j in range(ndec):
+            if i == nra_ctr and j == ndec_ctr:
+                ref_src = ap.fit.RadioFixedBody(ras[i],decs[j],mfreq=sfreq,name='center') # the center reference source
+                cat.add_srcs([ref_src])
+            else:
+                cat.add_srcs([ap.fit.RadioFixedBody(ras[i],decs[j],mfreq=sfreq,name=ut.gen_name(i,j,nra,ndec))])
+    # aa.select_chans([0]) # Select which channels are used in computations
+    aa.set_ephemtime('2013/6/1 12:00') # observing time
+    cat.compute(aa)
+    lms = []
+    # for src in cat.get_srcs(): # bugs in aipy.phs.SrcCatalog.get_srcs function. No return value for case len(srcs) == 0.
+    for src in [cat[s] for s in cat.keys()]:
+        lms.append(get_lm(src,ref_src,aa))
+    print len(lms)
+    ls = [l1 for (l1,m1) in lms]
+    ms = [m2 for (l2,m2) in lms]
+    plt.figure(figsize=(8,6))
+    plt.scatter(ls,ms)
+    plt.show()
