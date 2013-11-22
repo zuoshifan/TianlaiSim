@@ -91,9 +91,9 @@ def get_aa(freqs):
 
 # plot the beam, antenna array, uv coverage
 if __name__ == '__main__':
-    plt_beam = True
+    plt_beam = False
     plt_antArray = False
-    plt_uvCov = False
+    plt_uvCov = True
     if plt_beam == True:
        freqs = np.array([0.150,0.160,0.170]) # GHz
        w = cst.c/(d*freqs[len(freqs)/2]*1.0e9) # beam width in angular coord, lambda/d
@@ -140,21 +140,22 @@ if __name__ == '__main__':
         plt.show()
     if plt_uvCov:
         nants = (ant_pos.shape)[0]
-        # Not consider conjugate baseline
-        bl1 = [(i,j) for i in range(nants) for j in range(i+1,nants)]
-        uvCov1 = []
-        for i,j in bl1:
-            uvCov1.append(ant_pos[j]-ant_pos[i])
-        u_x1 = [x1 for [x1,y1,z1] in uvCov1]
-        u_y1 = [y2 for [x2,y2,z2] in uvCov1]
-        plt.figure(figsize=(8,6))
-        plt.scatter(u_x1,u_y1)
-        plt.axes().set_aspect('equal', 'datalim')
-        plt.xlabel('u (ns)')
-        plt.ylabel('v (ns)')
-        plt.savefig('figure/png/uv_coverage1.png')
-        plt.savefig('figure/eps/uv_coverage1.eps')
-        plt.show()
+        # # Not consider conjugate baseline
+        # bl1 = [(i,j) for i in range(nants) for j in range(i+1,nants)]
+        # uvCov1 = []
+        # for i,j in bl1:
+        #     uvCov1.append(ant_pos[j]-ant_pos[i])
+        # u_x1 = [x1 for [x1,y1,z1] in uvCov1]
+        # u_y1 = [y2 for [x2,y2,z2] in uvCov1]
+        # plt.figure(figsize=(8,6))
+        # plt.scatter(u_x1,u_y1)
+        # plt.axes().set_aspect('equal', 'datalim')
+        # plt.xlabel('u (ns)')
+        # plt.ylabel('v (ns)')
+        # plt.savefig('figure/png/uv_coverage1.png')
+        # plt.savefig('figure/eps/uv_coverage1.eps')
+        # plt.show()
+        
         # Now consider conjugate baseline
         bl2 = [(i,j) for i in range(nants) for j in range(nants)]
         uvCov2 = []

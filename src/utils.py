@@ -1,7 +1,8 @@
 """
 Some useful functions used by other modules.
 """
-
+import numpy as np
+import constant as cst
 
 def deg2str(deg):
     """
@@ -44,3 +45,32 @@ def gen_name(i,j,max_i,max_j):
         name += '0'
     name += str(j)
     return name
+
+def xyz2XYZ_m(lat):
+    """
+    Matrix of coordinates conversion through xyz to XYZ.
+    xyz coord: z toward zenith, x toward East, y toward North, xy in the horizon plane;
+    XYZ coord: Z toward north pole, X in the local meridian plane, Y toward East, XY plane parallel to equatorial plane.
+    Arguments:
+    - `lat`: latitude of the observing position.
+    """
+    sin_a, cos_a = np.sin(lat), np.cos(lat)
+    zero = np.zeros_like(lat)
+    one = np.ones_like(lat)
+    map =  np.array([[  zero,   -sin_a,   cos_a  ],
+                     [   one,     zero,    zero  ],
+                     [  zero,    cos_a,   sin_a  ]])
+    if len(map.shape) == 3: map = map.transpose([2, 0, 1])
+    return map
+
+def latlong_conv(lat):
+    """
+    Covert the string represent latitude/longitude to radian.
+    Arguments:
+    - `lat`: string represent latitude
+    """
+    str_lat = lat.split(":")
+    lat = 0.0
+    for n in range(len(str_lat)):
+        lat += float(str_lat[n])/(60.0**n)
+    return lat*cst.deg2rad
